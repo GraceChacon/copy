@@ -1,0 +1,34 @@
+name: Test de disponibilidad
+
+on: 
+  push:
+    branches:
+    - master
+    - ramitaAle
+    - ramitaGrace
+    
+    
+ # Dejamos esta línea para probar manualmente sin estar haciendo push todo el tiempo
+  workflow_dispatch:
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+        with: 
+          fetch-depth: 0
+          
+      - name: Verificar lenguaje markdown
+        run: |
+          npm install remark-cli remark-preset-lint-consistent
+          npx remark . --use remark-preset-lint-consistent --frail
+ 
+      - name: Check HTML
+        uses: rundocs/checkout@master
+
+              
+        
+        
+        
